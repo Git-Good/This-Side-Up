@@ -9,12 +9,12 @@ public class CatScript : MonoBehaviour {
 		transform.position = new Vector2 (-2f, 2f);
 		tag = "Player";
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		Vector2 stagePos = Camera.main.WorldToScreenPoint (transform.position);
-		if (stagePos.y < -2.24f) {
-			// What happens when cat falls off the pillar
+		// Check what happens when cat falls off map
+		if (this.transform.position.y < -5f) {
+			SceneManager.LoadScene ("This Side Up");
 		}
 	}
 
@@ -30,6 +30,12 @@ public class CatScript : MonoBehaviour {
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
 		foreach (GameObject pillar in pillars) {
 			pillar.SendMessage ("StopScroll");
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collider){
+		if (collider.tag == "Floor") {
+			SceneManager.LoadScene ("This Side Up");
 		}
 	}
 }

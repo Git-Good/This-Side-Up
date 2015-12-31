@@ -5,6 +5,7 @@ public class StartScreen : MonoBehaviour {
 
     public GameObject GameTitle;
     public GameObject UIButtons;
+	public bool userInput = false;
     //public GameObject ScoreUnits;
     //public GameObject ScoreTens;
     //public GameObject ScoreHundreds;
@@ -15,6 +16,7 @@ public class StartScreen : MonoBehaviour {
 	void Start () {
         GameTitle.SetActive(true);
         UIButtons.SetActive(true);
+		userInput = false;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +25,7 @@ public class StartScreen : MonoBehaviour {
         {
             GameTitle.SetActive(false);
             UIButtons.SetActive(false);
+			userInput = true;
         }
 	}
 

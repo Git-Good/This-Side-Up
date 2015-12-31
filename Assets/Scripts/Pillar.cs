@@ -11,7 +11,7 @@ public class Pillar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector2 stagePos = Camera.main.WorldToScreenPoint (transform.position);
-		if (stagePos.x < -20) {
+		if (stagePos.x < -60) {
 			Destroy (gameObject);
 		}
 	}
