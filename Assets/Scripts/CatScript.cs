@@ -6,7 +6,7 @@ public class CatScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		transform.position = new Vector2 (-2f, 2f);
+		transform.position = new Vector2 (-2f, -0.4860704f);
 		tag = "Player";
 	}
 
