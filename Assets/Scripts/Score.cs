@@ -11,7 +11,7 @@ public class Score : MonoBehaviour {
 	void Start(){
 		score = 0;
 		highScore = PlayerPrefs.GetInt ("HighScore");
-		Debug.Log ("HighScore: " + highScore);
+		//Debug.Log ("HighScore: " + highScore);
 		scoreText = gameObject.GetComponent<Text> ();
 	}
 

@@ -5,7 +5,7 @@ public class PillarLoop : MonoBehaviour {
 
 	public GameObject[] pillarList;
 	//int initPillars = 3;
-	float minPillar = -2.5f;
+	float minPillar = -3.67f;
 	float maxPillar = 0.07f;
 
 	void Start() {
@@ -24,7 +24,7 @@ public class PillarLoop : MonoBehaviour {
 		//float widthOfPillar = ((BoxCollider2D)collider).size.x;
 		//Debug.Log (widthOfPillar);
 		Vector3 pos = collider.transform.position;
-		pos.x = 4.55f;
+		pos.x = 4.5f;
 //		pos.x += widthOfPillar * initPillars;
 
 		if (collider.name == "Table") {

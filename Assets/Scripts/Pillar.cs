@@ -9,7 +9,7 @@ public class Pillar : MonoBehaviour {
 	}
 
 	void Scroll() {
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (-4f, 0f);
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (-4.2f, 0f);
 	}
 
 	void StopScroll() {
