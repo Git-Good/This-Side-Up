@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour {
 
@@ -33,4 +34,13 @@ public class StartScreen : MonoBehaviour {
     {
         tapped = true;
     }
+
+	public void CharSelect(){
+		SceneManager.LoadScene ("Character Select");
+	}
+
+	public void PrevScene(){
+		// Also save the character the player has chosen
+		SceneManager.LoadScene ("This Side Up");
+	}
 }
