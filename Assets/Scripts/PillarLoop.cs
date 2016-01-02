@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PillarLoop : MonoBehaviour {
 
-	int initPillars = 3;
+	public GameObject[] pillarList;
+	//int initPillars = 3;
 	float minPillar = -2.5f;
 	float maxPillar = 0.07f;
 
@@ -20,19 +21,31 @@ public class PillarLoop : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
-		float widthOfPillar = ((BoxCollider2D)collider).size.x;
+		//float widthOfPillar = ((BoxCollider2D)collider).size.x;
 		//Debug.Log (widthOfPillar);
 		Vector3 pos = collider.transform.position;
-		pos.x += widthOfPillar * initPillars;
+		pos.x = 4.55f;
+//		pos.x += widthOfPillar * initPillars;
+
 		if (collider.name == "Table") {
 			// Do nothing because we don't need to loop the table
+			// Remove the table as well
+			Destroy(collider.gameObject);
 			return;
 		}
 		if (collider.tag == "Pillar") {
+			// Randomized pillar height
 			pos.y = Random.Range (minPillar, maxPillar);
 		}
+			
+		Destroy(collider.gameObject);
+		PillarSpawn(pos);
+	}
 
-		//Debug.Log ("Loop Pillar");
-		collider.transform.position = pos;
+	void PillarSpawn(Vector3 pos){
+		// Randomly spawn a pillar from the list
+		// This allows you to spawn any pillar randomly
+		int i = Random.Range (0, pillarList.Length);
+		Instantiate (pillarList [i], pos, Quaternion.identity);
 	}
 }

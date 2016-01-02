@@ -5,10 +5,8 @@ public class StartScreen : MonoBehaviour {
 
     public GameObject GameTitle;
     public GameObject UIButtons;
+	public GameObject ScoreText;
 	public bool userInput = false;
-    //public GameObject ScoreUnits;
-    //public GameObject ScoreTens;
-    //public GameObject ScoreHundreds;
 
     public bool tapped = false;
 
@@ -16,6 +14,7 @@ public class StartScreen : MonoBehaviour {
 	void Start () {
         GameTitle.SetActive(true);
         UIButtons.SetActive(true);
+		ScoreText.SetActive(false);
 		userInput = false;
 	}
 	
@@ -25,6 +24,7 @@ public class StartScreen : MonoBehaviour {
         {
             GameTitle.SetActive(false);
             UIButtons.SetActive(false);
+			ScoreText.SetActive(true);
 			userInput = true;
         }
 	}

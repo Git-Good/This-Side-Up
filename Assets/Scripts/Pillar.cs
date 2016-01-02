@@ -7,17 +7,9 @@ public class Pillar : MonoBehaviour {
 	void Start () {
 		gameObject.tag = "Pillar";
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		Vector2 stagePos = Camera.main.WorldToScreenPoint (transform.position);
-		if (stagePos.x < -80) {
-			Destroy (gameObject);
-		}
-	}
 
 	void Scroll() {
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (-3f, 0f);
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (-4f, 0f);
 	}
 
 	void StopScroll() {

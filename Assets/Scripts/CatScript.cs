@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class CatScript : MonoBehaviour {
 
+	public bool lose = false;
+
 	// Use this for initialization
 	void Start () {
 		transform.position = new Vector2 (-2f, -0.4860704f);
@@ -35,7 +37,13 @@ public class CatScript : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.tag == "Floor") {
-			SceneManager.LoadScene ("This Side Up");
+			lose = true;
+			StartCoroutine (LoseGame ());
 		}
+	}
+
+	IEnumerator LoseGame(){
+		yield return new WaitForSeconds(2);
+		SceneManager.LoadScene ("This Side Up");
 	}
 }
