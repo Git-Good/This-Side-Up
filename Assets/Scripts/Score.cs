@@ -4,12 +4,14 @@ using System.Collections;
 
 public class Score : MonoBehaviour {
 
-	private int score = 0;
-	private int highScore;
+	private static int score { get; set; }
+	static int highScore;
 	Text scoreText, highScoreText;
 
 	void Start(){
 		score = 0;
+		highScore = PlayerPrefs.GetInt ("HighScore");
+		//Debug.Log("High Score: " + PlayerPrefs.GetInt ("HighScore"));
 		scoreText = gameObject.GetComponent<Text> ();
 		//highScoreText = gameObject.GetComponent<Text> ();
 	}
@@ -24,9 +26,8 @@ public class Score : MonoBehaviour {
 	}
 
 	public void ShowHighScore () {
-		highScore = PlayerPrefs.GetInt ("HighScore");
 		highScoreText = gameObject.GetComponent<Text> ();
-		highScoreText.text = "Best: " + highScore;
+		highScoreText.text = "best: " + highScore;
 	}
 
 	public void OnDestroy(){
