@@ -5,17 +5,13 @@ using System.Collections;
 public class Score : MonoBehaviour {
 
 	private int score = 0;
-	private int highScore = 0;
-	Text scoreText;
+	private int highScore;
+	Text scoreText, highScoreText;
 
 	void Start(){
 		score = 0;
-		highScore = PlayerPrefs.GetInt ("HighScore");
-		//Debug.Log ("HighScore: " + highScore);
 		scoreText = gameObject.GetComponent<Text> ();
-	}
-
-	void Update () {
+		//highScoreText = gameObject.GetComponent<Text> ();
 	}
 
 	public void AddPoint(){
@@ -28,7 +24,9 @@ public class Score : MonoBehaviour {
 	}
 
 	public void ShowHighScore () {
-		
+		highScore = PlayerPrefs.GetInt ("HighScore");
+		highScoreText = gameObject.GetComponent<Text> ();
+		highScoreText.text = "Best: " + highScore;
 	}
 
 	public void OnDestroy(){

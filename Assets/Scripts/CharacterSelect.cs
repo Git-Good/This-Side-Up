@@ -52,7 +52,6 @@ public class CharacterSelect : MonoBehaviour {
 	}
 
 	void ShowCat(int num){
-		Debug.Log ("Test4");
 		if (num >= Players.Count) {
 			num = 0;
 		}

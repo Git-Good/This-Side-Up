@@ -44,7 +44,8 @@ public class CatScript : MonoBehaviour {
 	}
 
 	IEnumerator LoseGame(){
-		yield return new WaitForSeconds(2);
-		SceneManager.LoadScene ("This Side Up");
+		GameObject startScreen = GameObject.FindWithTag ("Start Screen");
+		yield return new WaitForSeconds(1);
+		startScreen.SendMessage ("Lose");
 	}
 }

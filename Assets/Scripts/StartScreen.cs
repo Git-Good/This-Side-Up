@@ -7,21 +7,33 @@ public class StartScreen : MonoBehaviour {
     public GameObject GameTitle;
     public GameObject UIButtons;
 	public GameObject ScoreText;
+	public GameObject HighScoreText;
 	public bool userInput = false;
 
-    public bool tapped = false;
+    private bool tapped = false;
+	private bool lose = false;
+	// static so that reloading the scene will not change the variable
+	private static bool restart = false;
 
 	// Use this for initialization
 	void Start () {
-        GameTitle.SetActive(true);
-        UIButtons.SetActive(true);
-		ScoreText.SetActive(false);
-		userInput = false;
+		if (restart != true) {
+			GameTitle.SetActive (true);
+			UIButtons.SetActive (true);
+			ScoreText.SetActive (false);
+			HighScoreText.SetActive (false);
+			userInput = false;
+		} else {
+			GameTitle.SetActive(false);
+			UIButtons.SetActive(false);
+			ScoreText.SetActive(true);
+			userInput = true;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if (tapped != false)
+		if (tapped != false && lose != true)
         {
             GameTitle.SetActive(false);
             UIButtons.SetActive(false);
@@ -30,17 +42,32 @@ public class StartScreen : MonoBehaviour {
         }
 	}
 
+	void RestartGame(){
+		SceneManager.LoadScene ("This Side Up");
+		restart = true;
+	}
+
+	public void ShowHighScore(){
+		UIButtons.SetActive(true);
+		HighScoreText.SetActive(true);
+		GameObject hscoreText = GameObject.FindWithTag ("HighScoreText");
+		hscoreText.SendMessage ("ShowHighScore");
+	}
+
+	public void Lose(){
+		lose = true;
+		ShowHighScore ();
+	}
+
     public void Tapped()
     {
         tapped = true;
+		if (lose == true) {
+			RestartGame ();
+		}
     }
 
 	public void CharSelect(){
 		SceneManager.LoadScene ("Character Select");
-	}
-
-	public void PrevScene(){
-		// Also save the character the player has chosen
-		SceneManager.LoadScene ("This Side Up");
 	}
 }
