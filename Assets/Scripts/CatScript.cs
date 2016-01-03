@@ -16,7 +16,8 @@ public class CatScript : MonoBehaviour {
 	void Update () {
 		// Check what happens when cat falls off map
 		if (this.transform.position.y < -5f) {
-			SceneManager.LoadScene ("This Side Up");
+			lose = true;
+			StartCoroutine (LoseGame ());
 		}
 	}
 

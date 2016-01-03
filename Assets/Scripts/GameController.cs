@@ -11,11 +11,19 @@ public class GameController : MonoBehaviour {
 	private bool isCharging = false;
 	private float catVel;
 
+	void Awake() {
+		if (PlayerPrefs.GetString ("Player") == "") {
+			// Spawn default if player has never chosen a cat before
+			PlayerPrefs.SetString ("Player", "Tigger");
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		// Change this once character selection is there
-		// SpawnSelectedChar();
-		Instantiate (cat);
+		Instantiate (Resources.Load ("Characters/" + PlayerPrefs.GetString ("Player")), transform.position, Quaternion.identity);
+		// Don't let screen turn off
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 	
 	// Update is called once per frame
@@ -38,9 +46,5 @@ public class GameController : MonoBehaviour {
 				GameObject.FindWithTag ("Player").SendMessage ("Jump", maxJumpForce * jump.chargePower + 380);
 			}
 		}
-	}
-
-	public void SpawnSelectedChar () {
-		Instantiate (Resources.Load ("Characters/" + PlayerPrefs.GetString ("Player")), transform.position, Quaternion.identity);
 	}
 }
