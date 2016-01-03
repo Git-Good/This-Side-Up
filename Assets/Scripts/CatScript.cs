@@ -16,6 +16,7 @@ public class CatScript : MonoBehaviour {
 	void Update () {
 		// Check what happens when cat falls off map
 		if (this.transform.position.y < -5f) {
+			this.GetComponent<Rigidbody2D> ().isKinematic = true;
 			lose = true;
 			StartCoroutine (LoseGame ());
 		}
@@ -37,7 +38,7 @@ public class CatScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
-		if (collider.tag == "Floor") {
+		if (collider.tag == "Floor" || collider.tag == "Ceiling") {
 			lose = true;
 			StartCoroutine (LoseGame ());
 		}

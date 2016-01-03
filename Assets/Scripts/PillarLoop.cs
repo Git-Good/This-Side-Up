@@ -6,7 +6,7 @@ public class PillarLoop : MonoBehaviour {
 	public GameObject[] pillarList;
 	//int initPillars = 3;
 	float minPillar = -3.67f;
-	float maxPillar = 0.07f;
+	float maxPillar = 0.03f;
 
 	void Start() {
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
@@ -31,6 +31,10 @@ public class PillarLoop : MonoBehaviour {
 			// Do nothing because we don't need to loop the table
 			// Remove the table as well
 			Destroy(collider.gameObject);
+			return;
+		}
+		if (collider.tag == "Player") {
+			// Do nothing
 			return;
 		}
 		if (collider.tag == "Pillar") {
