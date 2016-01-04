@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 public class CatScript : MonoBehaviour {
 
 	public bool lose = false;
+	public AudioClip thudSound;
+	AudioSource thud;
+
+	void Awake(){
+		thud = GetComponent<AudioSource> ();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +44,12 @@ public class CatScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
+		if (collider.tag == "Ceiling") {
+			thud.PlayOneShot (thudSound);
+		}
 		if (collider.tag == "Floor" || collider.tag == "Ceiling") {
+			//thud.PlayOneShot (thudSound);
+			GetComponent<Animator> ().SetTrigger ("Dizzy");
 			lose = true;
 			StartCoroutine (LoseGame ());
 		}
