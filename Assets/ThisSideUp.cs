@@ -24,7 +24,12 @@
 
 public static class ThisSideUp
 {
+        public const string achievement_jumped_in_100_boxes = "CgkIsJ6QpO0HEAIQBg"; // <GPGSID>
+        public const string achievement_jumped_in_5_boxes = "CgkIsJ6QpO0HEAIQAw"; // <GPGSID>
+        public const string achievement_jumped_in_10_boxes = "CgkIsJ6QpO0HEAIQBA"; // <GPGSID>
         public const string leaderboard_high_score = "CgkIsJ6QpO0HEAIQAA"; // <GPGSID>
+        public const string achievement_jumped_in_50_boxes = "CgkIsJ6QpO0HEAIQBQ"; // <GPGSID>
+        public const string achievement_jumped_into_a_box = "CgkIsJ6QpO0HEAIQAg"; // <GPGSID>
 
 }
 
