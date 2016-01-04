@@ -8,6 +8,7 @@ public class StartScreen : MonoBehaviour {
     public GameObject UIButtons;
 	public GameObject ScoreText;
 	public GameObject HighScoreText;
+	public GameObject instructions;
 	public bool userInput = false;
 
     private bool tapped = false;
@@ -18,12 +19,14 @@ public class StartScreen : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (restart != true) {
+			instructions.SetActive (false);
 			GameTitle.SetActive (true);
 			UIButtons.SetActive (true);
 			ScoreText.SetActive (false);
 			HighScoreText.SetActive (false);
 			userInput = false;
 		} else {
+			instructions.SetActive (true);
 			GameTitle.SetActive(false);
 			UIButtons.SetActive(false);
 			ScoreText.SetActive(true);
@@ -40,6 +43,10 @@ public class StartScreen : MonoBehaviour {
 			ScoreText.SetActive(true);
 			userInput = true;
         }
+	}
+
+	public void RemoveInstructions(){
+		instructions.SetActive (false);
 	}
 
 	void RestartGame(){
@@ -61,6 +68,7 @@ public class StartScreen : MonoBehaviour {
 
     public void Tapped()
     {
+		instructions.SetActive (true);
         tapped = true;
 		if (lose == true) {
 			RestartGame ();

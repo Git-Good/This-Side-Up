@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour {
 		catVel = cs.GetComponent<Rigidbody2D> ().velocity.y;
 		if (ss.userInput != false && cs.lose != true) {
 			if (Input.GetButtonDown ("Jump") && catVel == 0 && !isCharging) {
+				ss.SendMessage ("RemoveInstructions");
 				GameObject jumpBar = Instantiate (jumpPower) as GameObject;
 				isCharging = true;
 			}

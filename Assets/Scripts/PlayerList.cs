@@ -9,5 +9,6 @@ public class PlayerList : MonoBehaviour {
 	void Start () {
 		players.Add (new Player ("Tigger", 0));
 		players.Add (new Player ("Snow", 1));
+		players.Add (new Player ("Cindy", 2));
 	}
 }
