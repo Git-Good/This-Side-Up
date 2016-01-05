@@ -9,10 +9,13 @@ public class ShareScore : MonoBehaviour {
 
 	public void SendScore() {
 		HScore = PlayerPrefs.GetInt ("HighScore");
-		if (PlayGamesPlatform.Instance.localUser.authenticated) {
-			PlayGamesPlatform.Instance.ReportScore (HScore, "CgkIsJ6QpO0HEAIQAA", (bool success) => {
-				PlayGamesPlatform.Instance.ShowLeaderboardUI ("CgkIsJ6QpO0HEAIQAA");
-			});
+		// Don't share score if 0
+		if (HScore != 0){
+			if (PlayGamesPlatform.Instance.localUser.authenticated) {
+				PlayGamesPlatform.Instance.ReportScore (HScore, "CgkIsJ6QpO0HEAIQAA", (bool success) => {
+					PlayGamesPlatform.Instance.ShowLeaderboardUI ("CgkIsJ6QpO0HEAIQAA");
+				});
+			}
 		} else {
 			PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder ().Build ();
 			GooglePlayGames.PlayGamesPlatform.InitializeInstance (config);
