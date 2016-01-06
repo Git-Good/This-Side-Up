@@ -31,15 +31,23 @@ public class CatScript : MonoBehaviour {
 	void Jump (float jumpForce){
 		GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0f, jumpForce));
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
+		GameObject[] backgrounds = GameObject.FindGameObjectsWithTag ("Background");
 		foreach (GameObject pillar in pillars) {
 			pillar.SendMessage ("Scroll");
+		}
+		foreach (GameObject background in backgrounds) {
+			background.SendMessage ("ScrollBG");
 		}
 	}
 
 	void OnCollisionEnter2D() {
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
+		GameObject[] backgrounds = GameObject.FindGameObjectsWithTag ("Background");
 		foreach (GameObject pillar in pillars) {
 			pillar.SendMessage ("StopScroll");
+		}
+		foreach (GameObject background in backgrounds) {
+			background.SendMessage ("StopScrollBG");
 		}
 	}
 

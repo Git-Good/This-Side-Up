@@ -33,7 +33,7 @@ public class PillarLoop : MonoBehaviour {
 			Destroy(collider.gameObject);
 			return;
 		}
-		if (collider.tag == "Player") {
+		if (collider.tag == "Player" || collider.tag == "Background") {
 			// Do nothing
 			return;
 		}
