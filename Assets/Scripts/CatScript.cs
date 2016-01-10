@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class CatScript : MonoBehaviour {
 
 	public bool lose = false;
+	public bool isGounded = false;
 	public AudioClip thudSound;
 	AudioSource thud;
 
@@ -40,7 +41,7 @@ public class CatScript : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D() {
+	void OnCollisionEnter2D(Collision2D collision) {
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
 		GameObject[] backgrounds = GameObject.FindGameObjectsWithTag ("Background");
 		foreach (GameObject pillar in pillars) {
@@ -48,6 +49,16 @@ public class CatScript : MonoBehaviour {
 		}
 		foreach (GameObject background in backgrounds) {
 			background.SendMessage ("StopScrollBG");
+		}
+
+		if (collision.gameObject.tag == "Box" || collision.gameObject.name == "Table") {
+			isGounded = true;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision){
+		if (collision.gameObject.tag == "Box") {
+			isGounded = false;
 		}
 	}
 

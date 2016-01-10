@@ -32,8 +32,8 @@ public class CharacterSelect : MonoBehaviour {
 			cat.SetActive (false);
 		}
 
-		// Show first cat
-		ShowCat (0);
+		// Show selected cat
+		ShowCat (PlayerPrefs.GetInt("PlayerNum"));
 	}
 	
 	// Update is called once per frame
@@ -66,6 +66,7 @@ public class CharacterSelect : MonoBehaviour {
 
 	public void SelectCat(){
 		PlayerPrefs.SetString ("Player", Players[catNum].catName);
+		PlayerPrefs.SetInt ("PlayerNum", catNum);
 		//Debug.Log("Selected: " + PlayerPrefs.GetString("Player"));
 		SceneManager.LoadScene ("This Side Up");
 	}
