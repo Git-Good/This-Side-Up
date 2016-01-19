@@ -7,10 +7,13 @@ public class CatScript : MonoBehaviour {
 	public bool lose = false;
 	public bool isGounded = false;
 	public AudioClip thudSound;
+	public AudioClip meowSound;
 	AudioSource thud;
+	AudioSource meow;
 
 	void Awake(){
 		thud = GetComponent<AudioSource> ();
+		meow = GetComponent<AudioSource> ();
 	}
 
 	// Use this for initialization
@@ -27,6 +30,14 @@ public class CatScript : MonoBehaviour {
 			lose = true;
 			StartCoroutine (LoseGame ());
 		}
+	}
+
+	void JumpAnim() {
+		GetComponent<Animator> ().SetTrigger ("Jump");
+	}
+
+	void LandAnim() {
+		GetComponent<Animator> ().SetTrigger ("Land");
 	}
 
 	void Jump (float jumpForce){
@@ -67,10 +78,12 @@ public class CatScript : MonoBehaviour {
 			thud.PlayOneShot (thudSound);
 		}
 		if (collider.tag == "Floor" || collider.tag == "Ceiling") {
-			//thud.PlayOneShot (thudSound);
 			GetComponent<Animator> ().SetTrigger ("Dizzy");
-			lose = true;
-			StartCoroutine (LoseGame ());
+			if (lose != true) {
+				meow.PlayOneShot (meowSound);
+				lose = true;
+				StartCoroutine (LoseGame ());
+			}
 		}
 	}
 

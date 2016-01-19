@@ -36,12 +36,14 @@ public class GameController : MonoBehaviour {
 		if (ss.userInput != false && cs.lose != true) {
 			if (Input.GetButtonDown ("Jump") && cs.isGounded && !isCharging) {
 				ss.SendMessage ("RemoveInstructions");
+				cs.SendMessage ("JumpAnim");
 				GameObject jumpBar = Instantiate (jumpPower) as GameObject;
 				isCharging = true;
 			}
 
 			if (Input.GetButtonUp ("Jump") && cs.isGounded && isCharging) {
 				cs.isGounded = false;
+				cs.SendMessage ("LandAnim");
 				isCharging = false;
 				jumpS.PlayOneShot (jumpSound);
 				GameObject powerObject = GameObject.FindWithTag ("Power");
