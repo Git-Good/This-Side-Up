@@ -41,7 +41,7 @@ public class Score : MonoBehaviour {
 		highScoreText = gameObject.GetComponent<Text> ();
 		highScoreText.text = "best: " + highScore;
 		if (oldScore >= highScore) {
-			Debug.Log ("Changed HS Color");
+			//Debug.Log ("Changed HS Color");
 			highScoreText.color = new Color32 (238, 232, 170, 255);
 			oldScore = 0;
 		}
