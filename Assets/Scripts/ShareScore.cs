@@ -4,13 +4,11 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
-using SecPlayerPrefs;
-
 public class ShareScore : MonoBehaviour {
 	private int HScore;
 
 	public void SendScore() {
-		HScore = SecurePlayerPrefs.GetInt ("HighScore");
+		HScore = PlayerPrefs.GetInt ("HighScore");
 		// Don't share score if 0
 			if (PlayGamesPlatform.Instance.localUser.authenticated) {
 				PlayGamesPlatform.Instance.ReportScore (HScore, "CgkIsJ6QpO0HEAIQAA", (bool success) => {

@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 
-using SecPlayerPrefs;
-
 public class Score : MonoBehaviour {
 
 	private static int score { get; set; }
@@ -21,8 +19,8 @@ public class Score : MonoBehaviour {
 
 	void Start(){
 		score = 0;
-		highScore = SecurePlayerPrefs.GetInt ("HighScore");
-		//Debug.Log("High Score: " + SecurePlayerPrefs.GetInt ("HighScore"));
+		highScore = PlayerPrefs.GetInt ("HighScore");
+		//Debug.Log("High Score: " + PlayerPrefs.GetInt ("HighScore"));
 		scoreText = gameObject.GetComponent<Text> ();
 	}
 
@@ -35,7 +33,7 @@ public class Score : MonoBehaviour {
 			scoreText.color = new Color32 (238, 232, 170, 255);
 			oldScore = score + 1;
 			highScore = score;
-			SecurePlayerPrefs.SetInt("HighScore", highScore);
+			PlayerPrefs.SetInt("HighScore", highScore);
 		}
 	}
 
@@ -50,6 +48,6 @@ public class Score : MonoBehaviour {
 	}
 
 	public void OnDestroy(){
-		SecurePlayerPrefs.SetInt ("HighScore", highScore);
+		PlayerPrefs.SetInt ("HighScore", highScore);
 	}
 }
