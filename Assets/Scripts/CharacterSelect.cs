@@ -12,6 +12,13 @@ public class CharacterSelect : MonoBehaviour {
 
 	public Transform PlayerLocation;
 
+	public AudioClip menuClick;
+	AudioSource menuC;
+
+	void Awake(){
+		menuC = GetComponent<AudioSource> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		// Don't let screen turn off
@@ -44,10 +51,12 @@ public class CharacterSelect : MonoBehaviour {
 	}
 
 	public void ShowNext(){
+		menuC.PlayOneShot (menuClick);
 		ShowCat (catNum + 1);
 	}
 
 	public void ShowPrevious(){
+		menuC.PlayOneShot (menuClick);
 		ShowCat (catNum - 1);
 	}
 
@@ -65,9 +74,15 @@ public class CharacterSelect : MonoBehaviour {
 	}
 
 	public void SelectCat(){
+		menuC.PlayOneShot (menuClick);
 		PlayerPrefs.SetString ("Player", Players[catNum].catName);
 		PlayerPrefs.SetInt ("PlayerNum", catNum);
 		//Debug.Log("Selected: " + PlayerPrefs.GetString("Player"));
+		StartCoroutine (LoadCat ());
+	}
+
+	IEnumerator LoadCat(){
+		yield return new WaitForSeconds (menuClick.length-0.4f);
 		SceneManager.LoadScene ("This Side Up");
 	}
 }

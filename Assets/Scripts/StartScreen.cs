@@ -11,10 +11,17 @@ public class StartScreen : MonoBehaviour {
 	public GameObject instructions;
 	public bool userInput = false;
 
+	public AudioClip menuClick;
+	AudioSource menuC;
+
     private bool tapped = false;
 	private bool lose = false;
 	// static so that reloading the scene will not change the variable
 	private static bool restart = false;
+
+	void Awake(){
+		menuC = GetComponent<AudioSource> ();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -63,19 +70,32 @@ public class StartScreen : MonoBehaviour {
 
 	public void Lose(){
 		lose = true;
+		restart = true;
 		ShowHighScore ();
 	}
 
     public void Tapped()
     {
-		instructions.SetActive (true);
-        tapped = true;
-		if (lose == true) {
-			RestartGame ();
-		}
+		menuC.PlayOneShot (menuClick);
+		StartCoroutine (MenuSound ());
     }
 
 	public void CharSelect(){
+		menuC.PlayOneShot (menuClick);
+		StartCoroutine (LoadCatSelect ());
+	}
+
+	IEnumerator MenuSound(){
+		yield return new WaitForSeconds (menuClick.length-0.4f);
+		instructions.SetActive (true);
+		tapped = true;
+		if (lose == true) {
+			RestartGame ();
+		}
+	}
+
+	IEnumerator LoadCatSelect (){
+		yield return new WaitForSeconds (menuClick.length-0.4f);
 		SceneManager.LoadScene ("Character Select");
 	}
 }
