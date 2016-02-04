@@ -7,6 +7,8 @@ public class PillarLoop : MonoBehaviour {
 	//int initPillars = 3;
 	float minPillar = -3.67f;
 	float maxPillar = 0.03f;
+	float minBookshelf = -0.634f;
+	float maxBookshelf = 0.034f;
 
 	void Start() {
 		GameObject[] pillars = GameObject.FindGameObjectsWithTag ("Pillar");
@@ -50,6 +52,9 @@ public class PillarLoop : MonoBehaviour {
 		// Randomly spawn a pillar from the list
 		// This allows you to spawn any pillar randomly
 		int i = Random.Range (0, pillarList.Length);
+		if (pillarList [i].name.Contains ("Bookshelf")) {
+			pos.y = Random.Range (minBookshelf, maxBookshelf);
+		}
 		Instantiate (pillarList [i], pos, Quaternion.identity);
 	}
 }
