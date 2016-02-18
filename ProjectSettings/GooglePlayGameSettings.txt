@@ -1,4 +1,4 @@
-lastUpgrade=00927
+lastUpgrade=00931
 proj.AppId=269853396784
 proj.classDir=Assets
 proj.ConstantsClassName=ThisSideUp
@@ -6,3 +6,4 @@ and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0
 and.ClientId=
 android.SetupDone=true
 and.BundleId=ca.BlankSpace.ThisSideUp
+proj.requireGPlus=false

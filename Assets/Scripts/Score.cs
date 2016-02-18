@@ -7,14 +7,18 @@ public class Score : MonoBehaviour {
 	private static int score { get; set; }
 	static int highScore;
 	static int oldScore;
+    private bool played = false;
 	Text scoreText, highScoreText;
 
 	public AudioClip scoreSound;
+    public AudioClip beatHighScore;
 	AudioSource scoreS;
+    AudioSource beatHS;
 
 	void Awake(){
 		//PlayerPrefs.DeleteAll ();
 		scoreS = GetComponent<AudioSource> ();
+        beatHS = GetComponent<AudioSource>();
 	}
 
 	void Start(){
@@ -31,6 +35,12 @@ public class Score : MonoBehaviour {
 		oldScore = score;
 		if (score > highScore) {
 			scoreText.color = new Color32 (238, 232, 170, 255);
+            scoreText.fontSize = 150;
+            if (played == false)
+            {
+                beatHS.PlayOneShot(beatHighScore);
+                played = true;
+            }
 			oldScore = score + 1;
 			highScore = score;
 			PlayerPrefs.SetInt("HighScore", highScore);
@@ -40,7 +50,7 @@ public class Score : MonoBehaviour {
 	public void ShowHighScore () {
 		highScoreText = gameObject.GetComponent<Text> ();
 		highScoreText.text = "best: " + highScore;
-		if (oldScore >= highScore) {
+		if (oldScore > highScore) {
 			//Debug.Log ("Changed HS Color");
 			highScoreText.color = new Color32 (238, 232, 170, 255);
 			oldScore = 0;
