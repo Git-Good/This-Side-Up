@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	AudioSource jumpS;
 
 	private bool isCharging = false;
+    public bool startedGame = false;
 
 	void Awake() {
 		if (PlayerPrefs.GetString ("Player") == "") {
@@ -22,19 +23,20 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Change this once character selection is there
-		Instantiate (Resources.Load ("Characters/" + PlayerPrefs.GetString ("Player")), transform.position, Quaternion.identity);
+        Instantiate (Resources.Load ("Characters/" + PlayerPrefs.GetString ("Player")), transform.position, Quaternion.identity);
 		// Don't let screen turn off
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// Find a way to recode this so update won't have to run GetComponent and FindWithTag
-		StartScreen ss = this.GetComponent ("StartScreen") as StartScreen;
-		CatScript cs = GameObject.FindObjectOfType<CatScript>();
-		if (ss.userInput != false && cs.lose != true) {
+        // Find a way to recode this so update won't have to run GetComponent and FindWithTag
+        StartScreen ss = this.GetComponent("StartScreen") as StartScreen;
+        CatScript cs = GameObject.FindObjectOfType<CatScript>();
+        
+        if (ss.userInput != false && cs.lose != true) {
 			if (Input.GetButtonDown ("Jump") && cs.isGounded && !isCharging) {
+                startedGame = true;
 				ss.SendMessage ("RemoveInstructions");
 				cs.SendMessage ("JumpAnim");
 				GameObject jumpBar = Instantiate (jumpPower) as GameObject;
@@ -52,7 +54,17 @@ public class GameController : MonoBehaviour {
 				GameObject.FindWithTag ("Player").SendMessage ("Jump", maxJumpForce * jump.chargePower + 380);
 			}
 		}
-		if (cs.lose == true || cs.isGounded == false) {
+        // Time Trial Timer
+        if (ss.timeTrial == true && cs.lose != true && startedGame == true)
+        {
+            GameObject timerText = GameObject.FindWithTag("TimerText");
+            timerText.SendMessage("CountDown");
+        }
+        if (ss.timeTrial == true && cs.lose == true)
+        {
+            startedGame = false;
+        }
+        if (cs.lose == true || cs.isGounded == false) {
 			Destroy (GameObject.FindWithTag ("Power"));
 		}
 	}

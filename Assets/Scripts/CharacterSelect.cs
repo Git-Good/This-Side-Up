@@ -10,7 +10,7 @@ public class CharacterSelect : MonoBehaviour {
 	private int catNum;
 	private PlayerList playerList;
 
-	public Transform PlayerLocation;
+    public Transform PlayerLocation;
 
 	public AudioClip menuClick;
 	AudioSource menuC;
@@ -24,7 +24,7 @@ public class CharacterSelect : MonoBehaviour {
 		// Don't let screen turn off
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-		playerList = GameObject.FindGameObjectWithTag ("Player List").GetComponent<PlayerList> ();
+        playerList = GameObject.FindGameObjectWithTag ("Player List").GetComponent<PlayerList> ();
 		Players.Clear ();
 		for (int i = 0; i < CatList.Length; i++) {
 			Players.Add (playerList.players[i]);
@@ -61,7 +61,7 @@ public class CharacterSelect : MonoBehaviour {
 	}
 
 	void ShowCat(int num){
-		if (num >= Players.Count) {
+        if (num >= Players.Count) {
 			num = 0;
 		}
 		else if (num < 0){
@@ -74,11 +74,11 @@ public class CharacterSelect : MonoBehaviour {
 	}
 
 	public void SelectCat(){
-		menuC.PlayOneShot (menuClick);
-		PlayerPrefs.SetString ("Player", Players[catNum].catName);
-		PlayerPrefs.SetInt ("PlayerNum", catNum);
-		//Debug.Log("Selected: " + PlayerPrefs.GetString("Player"));
-		StartCoroutine (LoadCat ());
+            menuC.PlayOneShot(menuClick);
+            PlayerPrefs.SetString("Player", Players[catNum].catName);
+            PlayerPrefs.SetInt("PlayerNum", catNum);
+            //Debug.Log("Selected: " + PlayerPrefs.GetString("Player"));
+            StartCoroutine(LoadCat());
 	}
 
 	IEnumerator LoadCat(){

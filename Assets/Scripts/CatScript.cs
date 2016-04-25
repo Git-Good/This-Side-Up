@@ -90,6 +90,13 @@ public class CatScript : MonoBehaviour {
 	IEnumerator LoseGame(){
 		GameObject startScreen = GameObject.FindWithTag ("Start Screen");
 		yield return new WaitForSeconds(1);
-		startScreen.SendMessage ("Lose");
+        if (startScreen.GetComponent<StartScreen>().timeTrial == true)
+        {
+            startScreen.SendMessage("LoseTimeTrial");
+        }
+        else
+        {
+            startScreen.SendMessage("Lose");
+        }
 	}
 }
