@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
 	private bool isCharging = false;
     public bool startedGame = false;
 
+    private static bool isInTimeTrial;
+
 	void Awake() {
 		if (PlayerPrefs.GetString ("Player") == "") {
 			// Spawn default if player has never chosen a cat before
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Read the Time Trial variable
+        isInTimeTrial = StartScreen.timeTrial;
         // Find a way to recode this so update won't have to run GetComponent and FindWithTag
         StartScreen ss = this.GetComponent("StartScreen") as StartScreen;
         CatScript cs = GameObject.FindObjectOfType<CatScript>();
@@ -55,12 +59,16 @@ public class GameController : MonoBehaviour {
 			}
 		}
         // Time Trial Timer
-        if (ss.timeTrial == true && cs.lose != true && startedGame == true)
+        if (cs.lose != true && startedGame == true)
         {
+            
             GameObject timerText = GameObject.FindWithTag("TimerText");
-            timerText.SendMessage("CountDown");
+            if (timerText != null)
+            {
+                timerText.SendMessage("CountDown");
+            } 
         }
-        if (ss.timeTrial == true && cs.lose == true)
+        if (isInTimeTrial == true && cs.lose == true)
         {
             startedGame = false;
         }

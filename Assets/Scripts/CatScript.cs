@@ -11,7 +11,9 @@ public class CatScript : MonoBehaviour {
 	AudioSource thud;
 	AudioSource meow;
 
-	void Awake(){
+    private static bool isInTimeTrial;
+
+    void Awake(){
 		thud = GetComponent<AudioSource> ();
 		meow = GetComponent<AudioSource> ();
 	}
@@ -24,8 +26,10 @@ public class CatScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		// Check what happens when cat falls off map
-		if (this.transform.position.y < -5f) {
+        // Read the Time Trial variable
+        isInTimeTrial = StartScreen.timeTrial;
+        // Check what happens when cat falls off map
+        if (this.transform.position.y < -5f) {
 			this.GetComponent<Rigidbody2D> ().isKinematic = true;
 			lose = true;
 			StartCoroutine (LoseGame ());
@@ -90,7 +94,7 @@ public class CatScript : MonoBehaviour {
 	IEnumerator LoseGame(){
 		GameObject startScreen = GameObject.FindWithTag ("Start Screen");
 		yield return new WaitForSeconds(1);
-        if (startScreen.GetComponent<StartScreen>().timeTrial == true)
+        if (isInTimeTrial == true)
         {
             startScreen.SendMessage("LoseTimeTrial");
         }

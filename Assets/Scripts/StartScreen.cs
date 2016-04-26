@@ -23,7 +23,7 @@ public class StartScreen : MonoBehaviour {
 	// static so that reloading the scene will not change the variable
 	private static bool restart = false;
     private static bool restartTimeTrial = false;
-    public bool timeTrial = false;
+    public static bool timeTrial = false;
 
 	void Awake(){
 		menuC = GetComponent<AudioSource> ();
@@ -31,7 +31,8 @@ public class StartScreen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (restartTimeTrial == true && timeTrial == true)
+        // Restarting game in time trial
+        if (restartTimeTrial == true)
         {
             timer.SetActive(true);
             instructions.SetActive(true);
@@ -40,6 +41,7 @@ public class StartScreen : MonoBehaviour {
             ScoreText.SetActive(true);
             userInput = true;
         }
+        // When you first open the game
         else if (restart != true) {
             instructions.SetActive(false);
             GameTitle.SetActive(true);
@@ -48,6 +50,7 @@ public class StartScreen : MonoBehaviour {
             HighScoreText.SetActive(false);
             userInput = false;
         }
+        // Restarting game in normal mode
         else {
             instructions.SetActive(true);
             GameTitle.SetActive(false);
@@ -84,7 +87,9 @@ public class StartScreen : MonoBehaviour {
 	void RestartGame(){
 		SceneManager.LoadScene ("This Side Up");
 		restart = true;
-	}
+        timeTrial = false;
+        restartTimeTrial = false;
+    }
 
     public void RestartTimeTrial()
     {
@@ -104,12 +109,13 @@ public class StartScreen : MonoBehaviour {
 	public void Lose(){
 		lose = true;
 		restart = true;
-		ShowHighScore ();
+        ShowHighScore ();
 	}
 
     public void LoseTimeTrial()
     {
         lose = true;
+        timeTrial = true;
         restartTimeTrial = true;
         ShowHighScore();
     }
@@ -118,7 +124,7 @@ public class StartScreen : MonoBehaviour {
     {
 		menuC.PlayOneShot (menuClick);
         restartTimeTrial = false;
-		StartCoroutine (MenuSound ());
+        StartCoroutine (MenuSound ());
     }
 
 	public void CharSelect(){
@@ -136,7 +142,7 @@ public class StartScreen : MonoBehaviour {
 		yield return new WaitForSeconds (menuClick.length-0.4f);
 		instructions.SetActive (true);
 		tapped = true;
-		if (lose == true) {
+        if (lose == true) {
 			RestartGame ();
 		}
 	}
