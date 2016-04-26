@@ -19,8 +19,8 @@ public class Score : MonoBehaviour {
     private static bool isInTimeTrial;
 
     void Awake(){
-		//PlayerPrefs.DeleteAll ();
-		scoreS = GetComponent<AudioSource> ();
+        //PlayerPrefs.DeleteAll ();
+        scoreS = GetComponent<AudioSource> ();
         beatHS = GetComponent<AudioSource>();
 	}
 

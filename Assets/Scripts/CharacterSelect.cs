@@ -2,14 +2,18 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using Image = UnityEngine.UI.Image;
 
 public class CharacterSelect : MonoBehaviour {
 
 	public GameObject[] CatList;
+    public GameObject selectButton;
 	public List<Player> Players = new List<Player> ();
 	private int catNum;
 	private PlayerList playerList;
 	static int highScore;
+
+    public GameObject playerReq;
 
     public Transform PlayerLocation;
 
@@ -75,15 +79,25 @@ public class CharacterSelect : MonoBehaviour {
 		catNum = num;
 		CatList [catNum].SetActive (true);
 
+        // Doge
+        // Need 30 score to play as Doge
+        // Should write code that detects if there is a requirement and do this automatically
 		if (catNum == 5 && highScore < 30) {
-			Vector3 pos = new Vector3(0f, 1f, 0f);
-			Instantiate (Resources.Load ("Text/Cat Names/UnlockGO"), pos, Quaternion.identity);
-			//SpriteRenderer dogeRenderer = CatList[5].GetComponent(SpriteRenderer);
-			//dogeRenderer.color = new Color (61, 61, 61, 61);
-
-			//Destroy (GameObject.FindWithTag ("UnlockReq"));
-		}
-	}
+            // Set requirement notification on
+            playerReq.SetActive(true);
+            SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
+            Image dogeName = CatList[5].GetComponentInChildren<Image>();
+            dogeSprite.color = new Color32(61, 61, 61, 255);
+            dogeName.color = new Color32(61, 61, 61, 255);
+            selectButton.SetActive(false);
+        }
+        else
+        {
+            // Set requirement notification off
+            playerReq.SetActive(false);
+            selectButton.SetActive(true);
+        }
+    }
 
 	public void SelectCat(){
         menuC.PlayOneShot(menuClick);
@@ -91,13 +105,11 @@ public class CharacterSelect : MonoBehaviour {
 			//do nothing
 		}
 		else {
-			Debug.Log (catNum);
-			Debug.Log (highScore);
-			PlayerPrefs.SetString("Player", Players[catNum].catName);
+            menuC.PlayOneShot(menuClick);
+            PlayerPrefs.SetString("Player", Players[catNum].catName);
 			PlayerPrefs.SetInt("PlayerNum", catNum);
 			StartCoroutine(LoadCat());
 		}
-        //Debug.Log("Selected: " + PlayerPrefs.GetString("Player"));
   	}
 
 	IEnumerator LoadCat(){

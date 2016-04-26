@@ -39,7 +39,7 @@ public class ShareScore : MonoBehaviour {
 	}
 
 	IEnumerator LoadLeaderboard(){
-        Debug.Log("Normal Leaderboard");
+        //Debug.Log("Normal Leaderboard");
 		yield return new WaitForSeconds (menuClick.length-0.4f);
 		if (PlayGamesPlatform.Instance.localUser.authenticated) {
 			PlayGamesPlatform.Instance.ReportScore (HScore, "CgkIsJ6QpO0HEAIQAA", (bool success) => {
@@ -60,7 +60,7 @@ public class ShareScore : MonoBehaviour {
 
     IEnumerator LoadTTLeaderboard()
     {
-        Debug.Log("Time Trial Leaderboard");
+        //Debug.Log("Time Trial Leaderboard");
         yield return new WaitForSeconds(menuClick.length - 0.4f);
         if (PlayGamesPlatform.Instance.localUser.authenticated)
         {

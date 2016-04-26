@@ -7,8 +7,6 @@ public class StartScreen : MonoBehaviour {
     public GameObject GameTitle;
     public GameObject TimeTrialTitle;
     public GameObject UIButtons;
-    //public GameObject LeaderboardButton;
-    //public GameObject TimeTrialLeaderboard;
 	public GameObject ScoreText;
 	public GameObject HighScoreText;
 	public GameObject instructions;
