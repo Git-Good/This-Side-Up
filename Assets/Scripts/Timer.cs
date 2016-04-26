@@ -9,8 +9,13 @@ public class Timer : MonoBehaviour {
     private string currentTime;
     Text timerText;
 
+    // Whistle Sound
+    public AudioClip whistleSound;
+    AudioSource whistleS;
+
     void Start()
     {
+        whistleS = GetComponent<AudioSource>();
         currentTime = startTime.ToString();
         CountDown();
     }
@@ -36,6 +41,7 @@ public class Timer : MonoBehaviour {
         }
         if (startTime <= 0)
         {
+            whistleS.PlayOneShot(whistleSound);
             CatScript cs = GameObject.FindObjectOfType<CatScript>();
             startTime = 0f;
             cs.lose = true;
