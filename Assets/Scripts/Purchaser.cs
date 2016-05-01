@@ -33,6 +33,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
     void Start()
     {
+        ZPlayerPrefs.Initialize("BlankSpaceStudios", "3f61739c6324fa969fb425e0d81e63c471de07b75cc062080345ad69de732c8d");
         // If we haven't set up the Unity Purchasing reference
         if (m_StoreController == null)
         {
@@ -201,8 +202,8 @@ public class Purchaser : MonoBehaviour, IStoreListener
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
 
-            PlayerPrefs.SetInt("Bought Doge", 1);
-            Debug.Log("Bought Doge: " + PlayerPrefs.GetInt("Bought Doge"));
+            ZPlayerPrefs.SetInt("Bought Doge", 1);
+            //Debug.Log("Bought Doge: " + ZPlayerPrefs.GetInt("Bought Doge"));
         }// Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
         {

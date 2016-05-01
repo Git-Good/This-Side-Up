@@ -23,16 +23,17 @@ public class CharacterSelect : MonoBehaviour {
 
     private int boughtDoge;
 
-	void Awake(){
+    void Awake(){
 		menuC = GetComponent<AudioSource> ();
-	}
+        ZPlayerPrefs.Initialize("BlankSpaceStudios", "3f61739c6324fa969fb425e0d81e63c471de07b75cc062080345ad69de732c8d");
+    }
 
 	// Use this for initialization
 	void Start () {
 		// Don't let screen turn off
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        boughtDoge = PlayerPrefs.GetInt("Bought Doge");
+        boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
 
         playerList = GameObject.FindGameObjectWithTag ("Player List").GetComponent<PlayerList> ();
 		highScore = PlayerPrefs.GetInt ("HighScore");
@@ -52,7 +53,7 @@ public class CharacterSelect : MonoBehaviour {
 		}
 
 		// Show selected cat
-		ShowCat (PlayerPrefs.GetInt("PlayerNum"));
+		ShowCat (ZPlayerPrefs.GetInt("PlayerNum"));
 	}
 	
 	// Update is called once per frame
@@ -76,7 +77,7 @@ public class CharacterSelect : MonoBehaviour {
         // Doge
         // Need 30 score to play as Doge
         // Should write code that detects if there is a requirement and do this automatically
-        boughtDoge = PlayerPrefs.GetInt("Bought Doge");
+        boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
         // Need 30 Score to play as Doge
         if (catNum == 5 && highScore < 30)
         {
@@ -130,8 +131,8 @@ public class CharacterSelect : MonoBehaviour {
 
 	public void SelectCat(){
         menuC.PlayOneShot(menuClick);
-        PlayerPrefs.SetString("Player", Players[catNum].catName);
-		PlayerPrefs.SetInt("PlayerNum", catNum);
+        ZPlayerPrefs.SetString("Player", Players[catNum].catName);
+		ZPlayerPrefs.SetInt("PlayerNum", catNum);
 		StartCoroutine(LoadCat());
   	}
 
