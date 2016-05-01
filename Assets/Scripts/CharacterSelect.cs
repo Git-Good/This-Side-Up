@@ -8,6 +8,7 @@ public class CharacterSelect : MonoBehaviour {
 
 	public GameObject[] CatList;
     public GameObject selectButton;
+    public GameObject buyButton;
 	public List<Player> Players = new List<Player> ();
 	private int catNum;
 	private PlayerList playerList;
@@ -20,6 +21,8 @@ public class CharacterSelect : MonoBehaviour {
 	public AudioClip menuClick;
 	AudioSource menuC;
 
+    private int boughtDoge;
+
 	void Awake(){
 		menuC = GetComponent<AudioSource> ();
 	}
@@ -28,6 +31,8 @@ public class CharacterSelect : MonoBehaviour {
 	void Start () {
 		// Don't let screen turn off
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        boughtDoge = PlayerPrefs.GetInt("Bought Doge");
 
         playerList = GameObject.FindGameObjectWithTag ("Player List").GetComponent<PlayerList> ();
 		highScore = PlayerPrefs.GetInt ("HighScore");
@@ -52,9 +57,8 @@ public class CharacterSelect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			SceneManager.LoadScene ("This Side Up");
-		}
+        // Check if player meets requirements for character
+        CheckUnlock();
 	}
 
 	public void ShowNext(){
@@ -67,6 +71,50 @@ public class CharacterSelect : MonoBehaviour {
 		ShowCat (catNum - 1);
 	}
 
+    public void CheckUnlock()
+    {
+        // Doge
+        // Need 30 score to play as Doge
+        // Should write code that detects if there is a requirement and do this automatically
+        boughtDoge = PlayerPrefs.GetInt("Bought Doge");
+        // Need 30 Score to play as Doge
+        if (catNum == 5 && highScore < 30)
+        {
+            // Don't have 30 score, check if player bought Doge
+            if (catNum == 5 && boughtDoge != 1)
+            {
+                // Less than 30 score and not bought Doge
+                // Set requirement notification on
+                playerReq.SetActive(true);
+                SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
+                Image dogeName = CatList[5].GetComponentInChildren<Image>();
+                dogeSprite.color = new Color32(61, 61, 61, 255);
+                dogeName.color = new Color32(61, 61, 61, 255);
+                selectButton.SetActive(false);
+                buyButton.SetActive(true);
+            }
+            else
+            {
+                // Less than 30 score but bought Doge
+                // Set requirement notification off
+                playerReq.SetActive(false);
+                SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
+                Image dogeName = CatList[5].GetComponentInChildren<Image>();
+                dogeSprite.color = new Color32(255, 255, 255, 255);
+                dogeName.color = new Color32(255, 255, 255, 255);
+                selectButton.SetActive(true);
+                buyButton.SetActive(false);
+            }
+        }
+        else
+        {
+            // Set requirement notification off
+            playerReq.SetActive(false);
+            selectButton.SetActive(true);
+            buyButton.SetActive(false);
+        }
+    }
+
 	void ShowCat(int num){
         if (num >= Players.Count) {
 			num = 0;
@@ -78,38 +126,13 @@ public class CharacterSelect : MonoBehaviour {
 		CatList [catNum].SetActive (false);
 		catNum = num;
 		CatList [catNum].SetActive (true);
-
-        // Doge
-        // Need 30 score to play as Doge
-        // Should write code that detects if there is a requirement and do this automatically
-		if (catNum == 5 && highScore < 30) {
-            // Set requirement notification on
-            playerReq.SetActive(true);
-            SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
-            Image dogeName = CatList[5].GetComponentInChildren<Image>();
-            dogeSprite.color = new Color32(61, 61, 61, 255);
-            dogeName.color = new Color32(61, 61, 61, 255);
-            selectButton.SetActive(false);
-        }
-        else
-        {
-            // Set requirement notification off
-            playerReq.SetActive(false);
-            selectButton.SetActive(true);
-        }
     }
 
 	public void SelectCat(){
         menuC.PlayOneShot(menuClick);
-		if (catNum == 5 && highScore < 30) {
-			//do nothing
-		}
-		else {
-            menuC.PlayOneShot(menuClick);
-            PlayerPrefs.SetString("Player", Players[catNum].catName);
-			PlayerPrefs.SetInt("PlayerNum", catNum);
-			StartCoroutine(LoadCat());
-		}
+        PlayerPrefs.SetString("Player", Players[catNum].catName);
+		PlayerPrefs.SetInt("PlayerNum", catNum);
+		StartCoroutine(LoadCat());
   	}
 
 	IEnumerator LoadCat(){
