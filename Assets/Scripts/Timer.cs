@@ -13,16 +13,18 @@ public class Timer : MonoBehaviour {
     public AudioClip whistleSound;
     AudioSource whistleS;
 
+    GameController gc;
+
     void Start()
     {
         whistleS = GetComponent<AudioSource>();
         currentTime = startTime.ToString();
         CountDown();
+        gc = GameObject.FindObjectOfType<GameController>();
     }
 
     void Update()
     {
-        GameController gc = GameObject.FindObjectOfType<GameController>();
         if (gc.startedGame == true)
         {
             startTime -= Time.deltaTime;

@@ -31,9 +31,9 @@ public class CatScript : MonoBehaviour {
         // Check what happens when cat falls off map
         if (this.transform.position.y < -5f) {
 			this.GetComponent<Rigidbody2D> ().isKinematic = true;
-			lose = true;
-			StartCoroutine (LoseGame ());
-		}
+            lose = true;
+            StartCoroutine(LoseGame());
+        }
 	}
 
 	void JumpAnim() {
@@ -65,11 +65,15 @@ public class CatScript : MonoBehaviour {
 		foreach (GameObject background in backgrounds) {
 			background.SendMessage ("StopScrollBG");
 		}
+    }
 
-		if (collision.gameObject.tag == "Box" || collision.gameObject.name == "Table") {
-			isGounded = true;
-		}
-	}
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Box" || collision.gameObject.name == "Table")
+        {
+            isGounded = true;
+        }
+    }
 
 	void OnCollisionExit2D(Collision2D collision){
 		if (collision.gameObject.tag == "Box") {
@@ -79,17 +83,27 @@ public class CatScript : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.tag == "Ceiling") {
-			thud.PlayOneShot (thudSound);
-		}
+            thud.PlayOneShot (thudSound);
+            meow.PlayOneShot(meowSound);
+        }
 		if (collider.tag == "Floor" || collider.tag == "Ceiling") {
 			GetComponent<Animator> ().SetTrigger ("Dizzy");
-			if (lose != true) {
-				meow.PlayOneShot (meowSound);
-				lose = true;
-				StartCoroutine (LoseGame ());
-			}
+            if (lose != true)
+            {
+                Lost();
+            }
 		}
 	}
+    
+    public void Lost()
+    {
+        if (!meow.isPlaying)
+        {
+            meow.PlayOneShot(meowSound);
+        }
+        lose = true;
+        StartCoroutine(LoseGame());
+    }
 
 	IEnumerator LoseGame(){
 		GameObject startScreen = GameObject.FindWithTag ("Start Screen");

@@ -16,7 +16,7 @@ public class StartScreen : MonoBehaviour {
 	public AudioClip menuClick;
 	AudioSource menuC;
 
-    private bool tapped = false;
+    private static bool tapped = false;
 	private bool lose = false;
 	// static so that reloading the scene will not change the variable
 	private static bool restart = false;
@@ -32,12 +32,7 @@ public class StartScreen : MonoBehaviour {
         // Restarting game in time trial
         if (restartTimeTrial == true)
         {
-            timer.SetActive(true);
             instructions.SetActive(true);
-            GameTitle.SetActive(false);
-            UIButtons.SetActive(false);
-            ScoreText.SetActive(true);
-            userInput = true;
         }
         // When you first open the game
         else if (restart != true) {
@@ -51,10 +46,6 @@ public class StartScreen : MonoBehaviour {
         // Restarting game in normal mode
         else {
             instructions.SetActive(true);
-            GameTitle.SetActive(false);
-            UIButtons.SetActive(false);
-            ScoreText.SetActive(true);
-            userInput = true;
         }
 	}
 	
@@ -84,6 +75,7 @@ public class StartScreen : MonoBehaviour {
 
 	void RestartGame(){
 		SceneManager.LoadScene ("This Side Up");
+        tapped = true;
 		restart = true;
         timeTrial = false;
         restartTimeTrial = false;
@@ -92,6 +84,7 @@ public class StartScreen : MonoBehaviour {
     public void RestartTimeTrial()
     {
         SceneManager.LoadScene("This Side Up");
+        tapped = false;
         restart = false;
         timeTrial = true;
         restartTimeTrial = true;
@@ -155,7 +148,6 @@ public class StartScreen : MonoBehaviour {
         timeTrial = true;
         yield return new WaitForSeconds(menuClick.length - 0.4f);
         instructions.SetActive(true);
-        timer.SetActive(true);
         if (lose == true)
         {
             RestartTimeTrial();

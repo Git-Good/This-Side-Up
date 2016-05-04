@@ -13,5 +13,6 @@ public class PlayerList : MonoBehaviour {
 		players.Add (new Player ("David", 3));
 		players.Add (new Player ("Julie", 4));
         players.Add(new Player("Doge", 5));
+        players.Add(new Player("Hamilton", 6));
     }
 }

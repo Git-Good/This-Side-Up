@@ -9,12 +9,14 @@ public class CharacterSelect : MonoBehaviour {
 	public GameObject[] CatList;
     public GameObject selectButton;
     public GameObject buyButton;
-	public List<Player> Players = new List<Player> ();
+    public GameObject buyButton2;
+    public List<Player> Players = new List<Player> ();
 	private int catNum;
 	private PlayerList playerList;
 	static int highScore;
 
     public GameObject playerReq;
+    public GameObject playerReq2;
 
     public Transform PlayerLocation;
 
@@ -22,6 +24,7 @@ public class CharacterSelect : MonoBehaviour {
 	AudioSource menuC;
 
     private int boughtDoge;
+    private int boughtHamilton;
 
     void Awake(){
 		menuC = GetComponent<AudioSource> ();
@@ -78,6 +81,7 @@ public class CharacterSelect : MonoBehaviour {
         // Need 30 score to play as Doge
         // Should write code that detects if there is a requirement and do this automatically
         boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
+        boughtHamilton = ZPlayerPrefs.GetInt("Bought Hamilton");
         // Need 30 Score to play as Doge
         if (catNum == 5 && highScore < 30)
         {
@@ -93,6 +97,7 @@ public class CharacterSelect : MonoBehaviour {
                 dogeName.color = new Color32(61, 61, 61, 255);
                 selectButton.SetActive(false);
                 buyButton.SetActive(true);
+                buyButton2.SetActive(false);
             }
             else
             {
@@ -105,14 +110,50 @@ public class CharacterSelect : MonoBehaviour {
                 dogeName.color = new Color32(255, 255, 255, 255);
                 selectButton.SetActive(true);
                 buyButton.SetActive(false);
+                buyButton2.SetActive(false);
+            }
+        }
+        // Hamilton
+        // Need 50 score to play as Hamilton
+        // Should write code that detects if there is a requirement and do this automatically
+        else if (catNum == 6 && highScore < 50)
+        {
+            // Don't have 50 score, check if player bought Hamilton
+            if (catNum == 6 && boughtHamilton != 1)
+            {
+                // Less than 50 score and not bought Hamilton
+                // Set requirement notification on
+                playerReq2.SetActive(true);
+                SpriteRenderer hamiltonSprite = CatList[6].GetComponent<SpriteRenderer>();
+                Image hamiltonName = CatList[6].GetComponentInChildren<Image>();
+                hamiltonSprite.color = new Color32(61, 61, 61, 255);
+                hamiltonName.color = new Color32(61, 61, 61, 255);
+                selectButton.SetActive(false);
+                buyButton.SetActive(false);
+                buyButton2.SetActive(true);
+            }
+            else
+            {
+                // Less than 50 score but bought Hamilton
+                // Set requirement notification off
+                playerReq2.SetActive(false);
+                SpriteRenderer hamiltonSprite = CatList[6].GetComponent<SpriteRenderer>();
+                Image hamiltonName = CatList[6].GetComponentInChildren<Image>();
+                hamiltonSprite.color = new Color32(255, 255, 255, 255);
+                hamiltonName.color = new Color32(255, 255, 255, 255);
+                selectButton.SetActive(true);
+                buyButton2.SetActive(false);
+                buyButton.SetActive(false);
             }
         }
         else
         {
             // Set requirement notification off
             playerReq.SetActive(false);
+            playerReq2.SetActive(false);
             selectButton.SetActive(true);
             buyButton.SetActive(false);
+            buyButton2.SetActive(false);
         }
     }
 

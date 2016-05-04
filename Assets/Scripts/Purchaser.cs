@@ -18,8 +18,9 @@ public class Purchaser : MonoBehaviour, IStoreListener
     private static string kProductIDConsumable = "consumable";                                                         // General handle for the consumable product.
     private static string kProductIDNonConsumable = "nonconsumable";                                                  // General handle for the non-consumable product.
     private static string kProductIDSubscription = "subscription";                                                   // General handle for the subscription product.
-                                                                                                                     // Adding new product
-                                                                                                                     //private static string newProduct = "newProduct";
+    private static string hamiltonNonConsumable = "hamiltonNonConsumable";
+    // Adding new product
+    //private static string newProduct = "newProduct";
 
     private static string kProductNameAppleConsumable = "com.unity3d.test.services.purchasing.consumable";             // Apple App Store identifier for the consumable product.
     private static string kProductNameAppleNonConsumable = "com.unity3d.test.services.purchasing.nonconsumable";      // Apple App Store identifier for the non-consumable product.
@@ -29,11 +30,16 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
     // REPLACE HERE FOR CHARACTERS
     private static string kProductNameGooglePlayNonConsumable = "doge";     // Google Play Store identifier for the non-consumable product.
+    private static string hamiltonCharacter = "hamilton";
     private static string kProductNameGooglePlaySubscription = "com.unity3d.test.services.purchasing.subscription";  // Google Play Store identifier for the subscription product.
+
+    void Awake()
+    {
+        ZPlayerPrefs.Initialize("BlankSpaceStudios", "3f61739c6324fa969fb425e0d81e63c471de07b75cc062080345ad69de732c8d");
+    }
 
     void Start()
     {
-        ZPlayerPrefs.Initialize("BlankSpaceStudios", "3f61739c6324fa969fb425e0d81e63c471de07b75cc062080345ad69de732c8d");
         // If we haven't set up the Unity Purchasing reference
         if (m_StoreController == null)
         {
@@ -57,6 +63,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
         // Add a product to sell / restore by way of its identifier, associating the general identifier with its store-specific identifiers.
         builder.AddProduct(kProductIDConsumable, ProductType.Consumable, new IDs() { { kProductNameAppleConsumable, AppleAppStore.Name }, { kProductNameGooglePlayConsumable, GooglePlay.Name }, });// Continue adding the non-consumable product.
         builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable, new IDs() { { kProductNameAppleNonConsumable, AppleAppStore.Name }, { kProductNameGooglePlayNonConsumable, GooglePlay.Name }, });// And finish adding the subscription product.
+        builder.AddProduct(hamiltonNonConsumable, ProductType.NonConsumable, new IDs() { { kProductNameAppleNonConsumable, AppleAppStore.Name }, { hamiltonCharacter, GooglePlay.Name }, });
         builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs() { { kProductNameAppleSubscription, AppleAppStore.Name }, { kProductNameGooglePlaySubscription, GooglePlay.Name }, });// Kick off the remainder of the set-up with an asynchrounous call, passing the configuration and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
         UnityPurchasing.Initialize(this, builder);
     }
@@ -80,6 +87,11 @@ public class Purchaser : MonoBehaviour, IStoreListener
     {
         // Buy the non-consumable product using its general identifier. Expect a response either through ProcessPurchase or OnPurchaseFailed asynchronously.
         BuyProductID(kProductIDNonConsumable);
+    }
+
+    public void BuyHamiltonNonConsumable()
+    {
+        BuyProductID(hamiltonNonConsumable);
     }
 
 
@@ -204,6 +216,13 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
             ZPlayerPrefs.SetInt("Bought Doge", 1);
             //Debug.Log("Bought Doge: " + ZPlayerPrefs.GetInt("Bought Doge"));
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, hamiltonNonConsumable, StringComparison.Ordinal))
+        {
+            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+
+            ZPlayerPrefs.SetInt("Bought Hamilton", 1);
+            //Debug.Log("Bought Hamilton: " + ZPlayerPrefs.GetInt("Bought Hamilton"));
         }// Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
         {
