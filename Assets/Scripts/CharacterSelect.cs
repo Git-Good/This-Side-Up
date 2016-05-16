@@ -83,16 +83,16 @@ public class CharacterSelect : MonoBehaviour {
         boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
         boughtHamilton = ZPlayerPrefs.GetInt("Bought Hamilton");
         // Need 30 Score to play as Doge
-        if (catNum == 5 && highScore < 30)
+        if (catNum == 6 && highScore < 30)
         {
             // Don't have 30 score, check if player bought Doge
-            if (catNum == 5 && boughtDoge != 1)
+            if (catNum == 6 && boughtDoge != 1)
             {
                 // Less than 30 score and not bought Doge
                 // Set requirement notification on
                 playerReq.SetActive(true);
-                SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
-                Image dogeName = CatList[5].GetComponentInChildren<Image>();
+                SpriteRenderer dogeSprite = CatList[6].GetComponent<SpriteRenderer>();
+                Image dogeName = CatList[6].GetComponentInChildren<Image>();
                 dogeSprite.color = new Color32(61, 61, 61, 255);
                 dogeName.color = new Color32(61, 61, 61, 255);
                 selectButton.SetActive(false);
@@ -104,8 +104,8 @@ public class CharacterSelect : MonoBehaviour {
                 // Less than 30 score but bought Doge
                 // Set requirement notification off
                 playerReq.SetActive(false);
-                SpriteRenderer dogeSprite = CatList[5].GetComponent<SpriteRenderer>();
-                Image dogeName = CatList[5].GetComponentInChildren<Image>();
+                SpriteRenderer dogeSprite = CatList[6].GetComponent<SpriteRenderer>();
+                Image dogeName = CatList[6].GetComponentInChildren<Image>();
                 dogeSprite.color = new Color32(255, 255, 255, 255);
                 dogeName.color = new Color32(255, 255, 255, 255);
                 selectButton.SetActive(true);
@@ -116,16 +116,16 @@ public class CharacterSelect : MonoBehaviour {
         // Hamilton
         // Need 50 score to play as Hamilton
         // Should write code that detects if there is a requirement and do this automatically
-        else if (catNum == 6 && highScore < 50)
+        else if (catNum == 7 && highScore < 50)
         {
             // Don't have 50 score, check if player bought Hamilton
-            if (catNum == 6 && boughtHamilton != 1)
+            if (catNum == 7 && boughtHamilton != 1)
             {
                 // Less than 50 score and not bought Hamilton
                 // Set requirement notification on
                 playerReq2.SetActive(true);
-                SpriteRenderer hamiltonSprite = CatList[6].GetComponent<SpriteRenderer>();
-                Image hamiltonName = CatList[6].GetComponentInChildren<Image>();
+                SpriteRenderer hamiltonSprite = CatList[7].GetComponent<SpriteRenderer>();
+                Image hamiltonName = CatList[7].GetComponentInChildren<Image>();
                 hamiltonSprite.color = new Color32(61, 61, 61, 255);
                 hamiltonName.color = new Color32(61, 61, 61, 255);
                 selectButton.SetActive(false);
@@ -137,8 +137,8 @@ public class CharacterSelect : MonoBehaviour {
                 // Less than 50 score but bought Hamilton
                 // Set requirement notification off
                 playerReq2.SetActive(false);
-                SpriteRenderer hamiltonSprite = CatList[6].GetComponent<SpriteRenderer>();
-                Image hamiltonName = CatList[6].GetComponentInChildren<Image>();
+                SpriteRenderer hamiltonSprite = CatList[7].GetComponent<SpriteRenderer>();
+                Image hamiltonName = CatList[7].GetComponentInChildren<Image>();
                 hamiltonSprite.color = new Color32(255, 255, 255, 255);
                 hamiltonName.color = new Color32(255, 255, 255, 255);
                 selectButton.SetActive(true);
