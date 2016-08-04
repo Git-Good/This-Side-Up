@@ -23,9 +23,6 @@ public class CharacterSelect : MonoBehaviour {
 	public AudioClip menuClick;
 	AudioSource menuC;
 
-    private int boughtDoge;
-    private int boughtHamilton;
-
     void Awake(){
 		menuC = GetComponent<AudioSource> ();
         ZPlayerPrefs.Initialize("BlankSpaceStudios", "3f61739c6324fa969fb425e0d81e63c471de07b75cc062080345ad69de732c8d");
@@ -35,8 +32,6 @@ public class CharacterSelect : MonoBehaviour {
 	void Start () {
 		// Don't let screen turn off
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-        boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
 
         playerList = GameObject.FindGameObjectWithTag ("Player List").GetComponent<PlayerList> ();
 		highScore = PlayerPrefs.GetInt ("HighScore");
@@ -80,14 +75,10 @@ public class CharacterSelect : MonoBehaviour {
         // Doge
         // Need 30 score to play as Doge
         // Should write code that detects if there is a requirement and do this automatically
-        boughtDoge = ZPlayerPrefs.GetInt("Bought Doge");
-        boughtHamilton = ZPlayerPrefs.GetInt("Bought Hamilton");
+
         // Need 30 Score to play as Doge
         if (catNum == 6 && highScore < 30)
         {
-            // Don't have 30 score, check if player bought Doge
-            if (catNum == 6 && boughtDoge != 1)
-            {
                 // Less than 30 score and not bought Doge
                 // Set requirement notification on
                 playerReq.SetActive(true);
@@ -98,29 +89,12 @@ public class CharacterSelect : MonoBehaviour {
                 selectButton.SetActive(false);
                 buyButton.SetActive(true);
                 buyButton2.SetActive(false);
-            }
-            else
-            {
-                // Less than 30 score but bought Doge
-                // Set requirement notification off
-                playerReq.SetActive(false);
-                SpriteRenderer dogeSprite = CatList[6].GetComponent<SpriteRenderer>();
-                Image dogeName = CatList[6].GetComponentInChildren<Image>();
-                dogeSprite.color = new Color32(255, 255, 255, 255);
-                dogeName.color = new Color32(255, 255, 255, 255);
-                selectButton.SetActive(true);
-                buyButton.SetActive(false);
-                buyButton2.SetActive(false);
-            }
         }
         // Hamilton
         // Need 50 score to play as Hamilton
         // Should write code that detects if there is a requirement and do this automatically
         else if (catNum == 7 && highScore < 50)
         {
-            // Don't have 50 score, check if player bought Hamilton
-            if (catNum == 7 && boughtHamilton != 1)
-            {
                 // Less than 50 score and not bought Hamilton
                 // Set requirement notification on
                 playerReq2.SetActive(true);
@@ -131,20 +105,6 @@ public class CharacterSelect : MonoBehaviour {
                 selectButton.SetActive(false);
                 buyButton.SetActive(false);
                 buyButton2.SetActive(true);
-            }
-            else
-            {
-                // Less than 50 score but bought Hamilton
-                // Set requirement notification off
-                playerReq2.SetActive(false);
-                SpriteRenderer hamiltonSprite = CatList[7].GetComponent<SpriteRenderer>();
-                Image hamiltonName = CatList[7].GetComponentInChildren<Image>();
-                hamiltonSprite.color = new Color32(255, 255, 255, 255);
-                hamiltonName.color = new Color32(255, 255, 255, 255);
-                selectButton.SetActive(true);
-                buyButton2.SetActive(false);
-                buyButton.SetActive(false);
-            }
         }
         else
         {

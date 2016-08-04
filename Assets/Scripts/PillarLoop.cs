@@ -22,7 +22,7 @@ public class PillarLoop : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D collider){
+	void OnTriggerEnter2D(Collider2D collider){
 		//float widthOfPillar = ((BoxCollider2D)collider).size.x;
 		//Debug.Log (widthOfPillar);
 		Vector3 pos = collider.transform.position;
