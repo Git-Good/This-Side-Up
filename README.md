@@ -1,9 +1,11 @@
 # This Side Up
 [Get it on Google Play](https://play.google.com/store/apps/details?id=ca.BlankSpace.ThisSideUp)
---------------------
-This Side Up is a simple platformer game where you tap and hold to increase your jump strength. You have to avoid the floor and watch out for the ceiling! The game features cats and cardboard boxes and other things you can find in your home. New cats and unlockable characters are available so jump far to rack up those points. Want to play those characters without meeting the requirements? Characters are purchasable for only 99 cents!
 
-This GitHub repo contains the source code for This Side Up.
+Description
+--------------------
+This Side Up is a platformer game where you tap and hold to increase your jump strength. You have to avoid the floor and watch out for the ceiling! The game features cats, cardboard boxes, and household appliances and furniture. Unlock new characters by jumping far to rack up points. Want to play as those characters without meeting the requirements? Characters are purchasable for only 99 cents!
+
+This GitHub repository contains the source code for This Side Up.
 
 Features
 --------------------
